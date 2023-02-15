@@ -11,7 +11,7 @@
 #
 
 # Modify default IP
-#sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/$1/g' package/base-files/files/bin/config_generate
 #设置版本为当前时间
 # date=`date +%Y-%m-%d.%H:%M`
 date=`date +%Y.%m.%d`
