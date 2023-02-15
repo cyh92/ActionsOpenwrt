@@ -79,8 +79,8 @@ jobs:
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a     
-    - name：执行自定义命令
-      run：|
+    - name: 执行自定义命令
+      run: |
         cd openwrt
         sed -i "s/192.168.1.1/${{ github.event.inputs.defaultIP }}/g" package/base-files/files/bin/config_generate
       
