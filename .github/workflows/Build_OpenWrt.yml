@@ -83,8 +83,8 @@ jobs:
       
     - name: Openwrt AutoUpdate
       run: |
-        TEMP=$(date +"%Y%m%d_%H%M%S_")$(git rev-parse --short HEAD)
-        echo "RELEASE_TAG_NAME=$TEMP" >> $GITHUB_ENV
+        #TEMP=$(date +"%Y%m%d_%H%M%S_")$(git rev-parse --short HEAD)
+        #echo "RELEASE_TAG_NAME=$TEMP" >> $GITHUB_ENV
         #required>>add "DISTRIB_GITHUB" to "zzz-default-settings"
         sed -i "/DISTRIB_DESCRIPTION=/a\sed -i '/DISTRIB_GITHUB/d' /etc/openwrt_release" openwrt/package/lean/default-settings/files/zzz-default-settings
         sed -i "/DISTRIB_GITHUB/a\echo \"DISTRIB_GITHUB=\'https://github.com/${{github.repository}}\'\" >> /etc/openwrt_release" openwrt/package/lean/default-settings/files/zzz-default-settings
@@ -166,7 +166,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "::set-output name=release_tag::${{ env.DEVICE_NAME }}${{ env.RELEASE_TAG_NAME }}"
+        echo "::set-output name=release_tag::Openwrt${{ env.DEVICE_NAME }}_$(date +"%Y%m%d_%H%M%S_")$(git rev-parse --short HEAD)"
         touch release.txt
         [ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})" >> release.txt
         [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
@@ -179,7 +179,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ env.RELEASE_TAG }}
+        tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
 
