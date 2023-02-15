@@ -8,7 +8,6 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Build-OpenWrt
 
 on:
   repository_dispatch:
@@ -28,6 +27,7 @@ on:
         - mi.config
         - cm520.config
 
+name: Build-${{github.event.inputs.config}}
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: 20221001
@@ -187,7 +187,7 @@ jobs:
       uses: GitRML/delete-workflow-runs@main
       with:
         retain_days: 1
-        keep_minimum_runs: 3
+        keep_minimum_runs: 5
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.1.0
