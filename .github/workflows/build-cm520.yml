@@ -21,7 +21,7 @@ on:
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede 
-  REPO_BRANCH: 20221001
+  REPO_BRANCH: 20220716
   FEEDS_CONF: oui.feeds
   CONFIG_FILE: cm520.config
   DIY_P1_SH: oui-1.sh
